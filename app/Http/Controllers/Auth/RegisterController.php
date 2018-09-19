@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -73,6 +74,15 @@ class RegisterController extends Controller
             'id_tipo_documento' =>  $data['id_tipo_documento'],
             'numero_documento'  =>  $data['numero_documento'],
             'estado'            =>  1
+        ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        $documentos = DB::table('categoria')->where('tipo', 'TipoDocumento')->get();
+
+        return view('auth.register', [
+            'tipo_documento'    =>  $documentos
         ]);
     }
 }

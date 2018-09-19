@@ -23,4 +23,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function (){
 	Route::resource('local', 'localController');
 	Route::resource('menu', 'menuController');
+	Route::resource('item', 'itemController');
 });
