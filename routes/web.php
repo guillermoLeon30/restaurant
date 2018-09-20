@@ -21,7 +21,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['middleware' => 'auth'], function (){
-	Route::resource('local', 'localController');
-	Route::resource('menu', 'menuController');
-	Route::resource('item', 'itemController');
+  Route::prefix('local')->group(function (){
+    Route::get('menusLocal/{local}', 'localController@menusLocal');
+    Route::post('agregarMenu', 'localController@agregarMenu');
+  });
+  Route::resource('local', 'localController');
+  
+  Route::resource('menu', 'menuController');
+  Route::prefix('menu')->group(function (){
+    Route::get('items/{menu}', 'MenuController@items');
+  });
+
+  Route::resource('item', 'itemController');
 });

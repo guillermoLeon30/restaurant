@@ -7,6 +7,8 @@
       </div>
 
       <form id="formIngresar" class="form-horizontal">
+        <input type="hidden" name="id_menu" value="{{ $menu->id_menu }}">
+
         <div class="modal-body">
           <div class="form-group">
             <label class="col-sm-2 control-label">Nombre</label>

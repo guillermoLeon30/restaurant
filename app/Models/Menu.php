@@ -18,6 +18,10 @@ class Menu extends Model
     return $this->belongsTo('App\User', 'users_id', 'id');
   }
 
+  public function items(){
+    return $this->hasMany('App\Models\Item', 'id_menu');
+  }
+
   //------------------------------METODOS-------------------------
   public static function guardar($request){
     $file = $request->file('imagen');

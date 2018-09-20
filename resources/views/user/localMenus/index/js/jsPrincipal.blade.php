@@ -1,25 +1,22 @@
 <script>
-  $('#formIngresar').submit(function (e) {
-    e.preventDefault();
-    var datos = new FormData($("#formIngresar")[0]);
-
+  function agregarMenu() {
     $.ajax({
       headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'},
-      url: '{{ url('item') }}',
+      url: '{{ url('local/agregarMenu') }}',
       type: 'POST',
-      data: datos,
+      data: {
+        'id_local': {{ $local->id_local }},
+        'id_menu' : $('#selectMenu').val()
+      },
       dataType: 'json',
-      contentType: false,
-      processData: false,
       beforeSend: function () {
-        $('#modalNuevo').modal('hide');
         $('.box').append('<div class="overlay">'+
                           '<i class="fa fa-refresh fa-spin"></i>'+
                          '</div>');
       },
       success: function (data) {
         $('.overlay').detach();
-        $('#tItems').html(data);
+        $('#tLocalMenus').html(data);
         toastr.success('Se ingresó el local correctamente.');
       },
       error: function (data) {
@@ -27,5 +24,5 @@
         mensaje2('error', 'Ocurrio un error al guardar el menu', '#mensaje');
       }
     });
-  });
+  }
 </script>

@@ -29,6 +29,11 @@ class Local extends Model
     return $this->belongsTo('App\Models\Categoria', 'id_pais', 'id_categoria');
   }
 
+  public function menus(){
+    return $this->belongsToMany('App\Models\Menu', 'local_menu', 'id_local', 'id_menu')
+                ->withPivot('id_estado');
+  }
+
   //----------------------------------METODOS-------------------------
   public static function guardar($local){
     $local = new Local($local->all());
@@ -37,6 +42,16 @@ class Local extends Model
     $local->token = '123456879';
 
     $local->save();
+
+    return $local;
+  }
+
+  public static function agregarMenu($datos){
+    $local = Local::findOrFail($datos->id_local);
+    
+    $local->menus()->attach($datos->id_menu, [
+      'id_estado' =>  1
+    ]);
 
     return $local;
   }

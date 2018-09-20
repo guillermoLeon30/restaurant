@@ -79,10 +79,10 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $documentos = DB::table('categoria')->where('tipo', 'TipoDocumento')->get();
-
-        return view('auth.register', [
-            'tipo_documento'    =>  $documentos
-        ]);
+        $tipo_documento = DB::table('categoria')->where('tipo', 'Documento')
+                                                ->where('estado', 1)
+                                                ->get();
+        
+        return view('auth.register', ['tipo_documento' => $tipo_documento]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Local;
+use App\Models\Menu;
 
 class localController extends Controller
 {
@@ -103,5 +104,25 @@ class localController extends Controller
   public function destroy($id)
   {
       //
+  }
+
+  public function menusLocal(Local $local){
+    return view('user.localMenus.index.index', [
+      'local'       =>  $local,
+      'menusLocal'  =>  $local->menus()->paginate(5),
+      'menus'       =>  auth()->user()->menus
+    ]);
+  }
+
+  public function agregarMenu(Request $datos){
+    try {
+      $local = Local::agregarMenu($datos);
+
+      return response()->json(view('user.localMenus.index.include.tLocalMenus', [
+        'menusLocal'  =>  $local->menus()->paginate(5)
+      ])->render());
+    } catch (\Exception $e) {
+      dd($e);
+    }
   }
 }

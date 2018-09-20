@@ -14,7 +14,7 @@
             <td>{{ $menu->nombre }}</td>
             
             <td>
-              <a class="btn btn-success" href="{{ url('item') }}">
+              <a class="btn btn-success" href="{{ url('menu/items') }}/{{ $menu->id_menu }}">
                 Items
               </a>
 

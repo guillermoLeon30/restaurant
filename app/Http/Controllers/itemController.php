@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Item;
 
 class itemController extends Controller
 {
@@ -32,7 +33,16 @@ class itemController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request){
-    dd($request->all());
+    try {
+      $item = Item::guardar($request);
+      
+      return response()->json(view('user.items.index.include.tItems', [
+        'items' =>  $item->menu->items()->paginate(5)
+      ])->render());
+    } catch (\Exception $e) {
+      dd($e);
+    }
+
   }
 
   /**

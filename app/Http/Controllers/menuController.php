@@ -90,4 +90,11 @@ class menuController extends Controller
   {
       //
   }
+
+  public function items(Menu $menu){
+    return view('user.items.index.index', [
+      'menu'  =>  $menu,
+      'items' =>  $menu->items()->paginate(5)
+    ]);
+  }
 }
