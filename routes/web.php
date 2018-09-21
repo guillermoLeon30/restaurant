@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function (){
   Route::prefix('local')->group(function (){
     Route::get('menusLocal/{local}', 'localController@menusLocal');
     Route::post('agregarMenu', 'localController@agregarMenu');
+    Route::post('distribuirMenus/{local}', 'localController@distribuirMenus');
+    Route::post('cambiarEstadoMenu/{local}/{menu}', 'localController@cambiarEstadoMenu');
   });
   Route::resource('local', 'localController');
   

@@ -46,4 +46,5 @@
 @push('js')
   @include('librerias.js.mensajes')
   @include('user.locales.index.js.jsGuardarLocal')
+  @include('user.locales.index.js.jsPrincipal')
 @endpush

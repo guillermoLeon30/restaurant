@@ -26,7 +26,7 @@
             <td>{{ $local->pais->valor }}</td>
             
             <td>
-              <button class="btn btn-success" onclick="">
+              <button class="btn btn-success" onclick="enviar({{ $local->id_local }})">
                 <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
               </button>
               

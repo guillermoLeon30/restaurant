@@ -55,4 +55,19 @@ class Local extends Model
 
     return $local;
   }
+
+  public static function cambiarEstadoMenu($local, $menu){
+    $registro = DB::table('local_menu')->where('id_local', $local->id_local)
+                                       ->where('id_menu', $menu->id_menu);
+    
+    $id_estado = $registro->get()->first()->id_estado;
+    
+    if ($id_estado == 1) {
+      $registro->update(['id_estado' => 2]);
+    } else {
+      $registro->update(['id_estado' => 1]);
+    }
+
+    return $local;
+  }
 }

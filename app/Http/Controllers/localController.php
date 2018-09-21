@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Local;
 use App\Models\Menu;
+use App\Events\ditrubComida;
 
 class localController extends Controller
 {
@@ -119,10 +120,35 @@ class localController extends Controller
       $local = Local::agregarMenu($datos);
 
       return response()->json(view('user.localMenus.index.include.tLocalMenus', [
+        'local'       =>  $local,
         'menusLocal'  =>  $local->menus()->paginate(5)
       ])->render());
     } catch (\Exception $e) {
       dd($e);
     }
+  }
+
+  public function distribuirMenus(Local $local){
+    try {
+      event(new ditrubComida($local));
+      
+      return response()->json([]);
+    } catch (\Exception $e) {
+      dd($e);
+    }
+  }
+
+  public function cambiarEstadoMenu(Local $local, Menu $menu){
+    try {
+      $rLocal = local::cambiarEstadoMenu($local, $menu);
+
+      return response()->json(view('user.localMenus.index.include.tLocalMenus', [
+        'local'       =>  $rLocal,
+        'menusLocal'  =>  $rLocal->menus()->paginate(5)
+      ])->render());
+    } catch (\Exception $e) {
+      dd($e);
+    }
+    
   }
 }

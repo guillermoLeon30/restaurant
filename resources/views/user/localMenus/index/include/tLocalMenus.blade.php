@@ -20,13 +20,13 @@
             
             <td>
               @if($menu->pivot->id_estado == 1)
-                <a class="btn btn-danger" href="">
+                <button class="btn btn-danger" onclick="cambiarEstado({{ $local->id_local }}, {{ $menu->id_menu }})">
                   Desactivar
-                </a>
+                </button>
               @else
-                <a class="btn btn-success" href="">
+                <button class="btn btn-success" onclick="cambiarEstado({{ $local->id_local }}, {{ $menu->id_menu }})">
                   Activar
-                </a>
+                </button>
               @endif
             </td>
           </tr>
