@@ -34,7 +34,7 @@ class ditrubComida implements ShouldBroadcastNow
    * @return \Illuminate\Broadcasting\Channel|array
    */
   public function broadcastOn(){
-    return new PrivateChannel('local'.$this->local->id);
+    return new Channel('local'.$this->local->id);
   }
 
   /**
